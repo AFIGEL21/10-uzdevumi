@@ -1,13 +1,16 @@
-from googletrans import Translator
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-# Iniciē translator
-translator = Translator()
+# Ielādē modelējošo valodu
+tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+model = GPT2LMHeadModel.from_pretrained("gpt2")
 
-text1 = "Labdien! Kā jums klājas?"
-text2 = "Es šodien lasīju interesantu grāmatu."
+# Sākuma frāze
+input_text = "Reiz kādā tālā zemē"
+input_ids = tokenizer.encode(input_text, return_tensors="pt")
 
-translated_text1 = translator.translate(text1, src='lv', dest='en').text
-translated_text2 = translator.translate(text2, src='lv', dest='en').text
+# Teksta ģenerēšana
+output = model.generate(input_ids, max_length=50, num_return_sequences=1, no_repeat_ngram_size=2)
 
-print(translated_text1)
-print(translated_text2)
+# Ievadīt un ģenerēt tekstu
+generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+print(generated_text)
