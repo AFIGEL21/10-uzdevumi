@@ -18,7 +18,7 @@ attention_mask = inputs.new_ones(inputs.shape)
 output = model.generate(
     inputs,
     attention_mask=attention_mask,  # Nodrošina pareizu masīvu
-    max_length=50,  # Pagarina ģenerēto tekstu līdz 100 vārdiem
+    max_length=100,  # Pagarina ģenerēto tekstu līdz 100 vārdiem
     num_return_sequences=1,
     no_repeat_ngram_size=2,
     temperature=0.8,  # Augstāka vērtība padara tekstu radošāku
