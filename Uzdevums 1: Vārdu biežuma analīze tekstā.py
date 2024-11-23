@@ -1,15 +1,34 @@
 import re
 from collections import Counter
 
-text = "Mākoņainā dienā kaķis sēdēja uz palodzes. Kaķis domāja, kāpēc debesis ir pelēkas. Kaķis gribēja redzēt sauli, bet saule slēpās aiz mākoņiem."
+# Teksts
+text = """
+Mākoņainā dienā kaķis sēdēja uz palodzes. Kaķis domāja, kāpēc debesis ir pelēkas.
+Kaķis gribēja redzēt sauli, bet saule slēpās aiz mākoņiem.
+"""
 
-# Tīra tekstu no liekajiem simboliem un pārvērš to par maziem burtiem
-text = text.lower()
-words = re.findall(r'\w+', text)
+def word_frequency_analysis(text):
+    # Pārvērš tekstu mazajiem burtiem un noņem interpunkciju
+    text = text.lower()
+    text = re.sub(r'[^\w\s]', '', text)
+    
+    # Sadalīt vārdus
+    words = text.split()
+    
+    # Skaitīt vārdu biežumu
+    word_count = Counter(words)
+    
+    # Kopējais vārdu skaits
+    total_words = len(words)
+    
+    return word_count, total_words
 
-# Skaita katra vārda biežumu
-word_counts = Counter(words)
+# Izsauc funkciju un iegūst rezultātus
+word_count, total_words = word_frequency_analysis(text)
 
-# Izvade
-for word, count in word_counts.items():
+# Izdrukāt rezultātus
+print("Vārdu biežums:")
+for word, count in word_count.items():
     print(f"{word}: {count}")
+    
+print(f"\nKopējais vārdu skaits: {total_words}")
